@@ -93,12 +93,4 @@ if type_game == "2":
       print(board_ASCI)
       print()
 
-      mydata = [
-          ["Nikhil", "Delhi"],
-          ["Ravi", "Kanpur"],
-          ["Manish", "Ahmedabad"],
-          ["Prince", "Bangalore"]
-      ]
-      head = ["Name", "City"]
-      print(mydata)
-      print(tabulate(mydata, headers=head, tablefmt="grid"))
+      
