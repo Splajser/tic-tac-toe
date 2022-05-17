@@ -1,3 +1,4 @@
+from prettytable import PrettyTable
 print()
 #powitanie  
 print("Hello! Welcome in Tic Tac Toe Game. Before starting, please choose type of the game:")
@@ -26,7 +27,7 @@ else:
 
 
 #tablica kółko i krzyżyk w systemie ACII
-bord = (''' 
+board_ASCI = (''' 
    A     B     C
       |     |     
 1  .  |  .  |  .  
@@ -41,7 +42,7 @@ bord = ('''
 
 
 #tablica znaków do grania
-marks_table = ["X", "x", "O", "o"]
+marks_table = ["X", "O",]
 
 
 print()
@@ -63,47 +64,41 @@ if type_game == "2":
       else:
           player_2 = player_A
 
-      print(player_1)
-      print(player_2)
+      print(f"{player_1} --> Player nr 1")
+      print(f"{player_2} --> Player nr 2")
       
-      print
-
-      #wybór kto używa kółka, kto krzyżyka
-      #print(str(player_1), + ", please chose your mark (for X type just x, for O type just o like open.")
-      #player_1_sign = input()
-
-
-
-
-
-
-
-
-
-#jeżeli multi player to musi być jasno określone kto ma X a kto ma O i musi to być zrobione drogą losowania
-#musi być też wybór random kto zaczyna grę
-#if type_game == "1":
-      #print("Please choose your sign: X or O.")
-      #player_A_sign = input("Your choice is: ")
-      #print(player_A_sign)
+      print()
+      print(f"Ok {player_1}, now please choose what is your mark. For X type x like xerox and for O type o like open.")
+      player_1_mark = input("Your mark is: ")
+      player_1_mark_up = str.upper(player_1_mark)
       
-#game_table = [ [ 'A1','A2','A3' ],[ 'B1','B2','B3' ],[ 'C1','C2','C3' ] ]
-#game_table_dots = [ [ '.','.','.' ],[ '.','.','.' ],[ '.','.','.' ] ]
-#print(game_table)
 
 
+      while not player_1_mark_up in marks_table:
+          print("Please provide correct mark: X or O (you can use lowercase too).")
+          player_1_mark = input("Your mark is: ")
+          player_1_mark_up = str.upper(player_1_mark)
+      else:
+          if player_1_mark_up == "X":
+              player_2_mark_up = "O"
+          else:
+              player_2_mark_up = "X"
+      
 
+      print(f"{player_1} --> {player_1_mark_up}")
+      print(f"{player_2} --> {player_2_mark_up}")
+      print()
+      
+      print(f"Ok guys, this is the board game. To start, {player_1} please type the cell address, where you want to sign your mark (for example please type: A2 or b2).")
+      print(board_ASCI)
+      print()
 
-
-#players_table = [player_A, player_B]
-
-#elif type_game == "2":
-     # import random
-      #player_1 = random.choice(players_table)
-     # if player_1 == player_A:
-            #player_2 = player_B
-      #else:
-           # player_2 = player_A
-
-#print(player_1)
-#print(player_2)
+      mydata = [
+          ["Nikhil", "Delhi"],
+          ["Ravi", "Kanpur"],
+          ["Manish", "Ahmedabad"],
+          ["Prince", "Bangalore"]
+      ]
+      head = ["Name", "City"]
+      print(mydata)
+      print(tabulate(mydata, headers=head, tablefmt="grid"))
