@@ -1,4 +1,5 @@
-
+from ast import Break
+from tracemalloc import stop
 
 print()
 #powitanie  
@@ -51,33 +52,19 @@ board_1 = ["1", ".", "|", ".", "|", "."]
 board_2 = ["2", ".", "|", ".", "|", "."]
 board_3 = ["3", ".", "|", ".", "|", "."]
 
-
-
-
-
-
 #rozwiązania, które dają wygraną graczowi
-
 #board_1_work[1] == board_2_work[1] == board_3_work[1]
-
 #board_1_work[3] == board_2_work[3] == board_3_work[3]
 #board_1_work[5] == board_2_work[5] == board_3_work[5]
-
 #board_1_work[1] == board_1_work[3] == board_1_work[5]
 #board_2_work[1] == board_2_work[3] == board_2_work[5]
 #board_3_work[1] == board_3_work[3] == board_3_work[5]
-
 #board_1_work[1] == board_2_work[3] == board_3_work[5]
 #board_3_work[1] == board_2_work[3] == board_1_work[5]
 
-#oznakowanie miejsc w tablicy
-
-
-
-
-
 #tablica znaków do grania
 marks_table = ["X", "O",]
+winner = []
 
 
 print()
@@ -126,21 +113,17 @@ if type_game == "2":
       print()
       
       print(f"Ok guys, this is the board game. Please type the cell address, where you want to sign your mark (for example please type: A2 or b2).")
-      print()
-      print(*board_0)
-      print(*board_1)
-      print(*board_2)
-      print(*board_3)
-      print()
+      
 
       
-      
-    #or board_1_work[3] == board_2_work[3] == board_3_work[3] 
-
-
-      while not board_1_work[3] == board_2_work[3] == board_3_work[3] and not board_1_work[1] == board_2_work[1] == board_3_work[1] and not board_1_work[5] == board_2_work[5] == board_3_work[5] and not board_1_work[1] == board_1_work[3] == board_1_work[5] and not board_2_work[1] == board_2_work[3] == board_2_work[5] and not board_3_work[1] == board_3_work[3] == board_3_work[5] and not board_1_work[1] == board_2_work[3] == board_3_work[5] and not board_3_work[1] == board_2_work[3] == board_1_work[5]:
-          
-      
+      # pierwsze 4 ruchy na tablicy
+      for i in range(2):
+          print()
+          print(*board_0)
+          print(*board_1)
+          print(*board_2)
+          print(*board_3)
+          print()
           print(f"{player_1} your move!")
           player_1_position = input("Please type your position: ")
           player_1_position_upper = player_1_position.upper()
@@ -171,7 +154,6 @@ if type_game == "2":
           elif player_1_position_upper == "C3" and board_3_work[5] == "C3":
               board_3[5] = player_1_mark_up
               board_3_work[5] = player_1_mark_up
-          
           print()
           print(*board_0)
           print(*board_1)
@@ -209,58 +191,259 @@ if type_game == "2":
           elif player_2_position_upper == "C3" and board_3_work[5] == "C3":
               board_3[5] = player_2_mark_up
               board_3_work[5] = player_2_mark_up
-        
+
+      print()
+      print(*board_0)
+      print(*board_1)
+      print(*board_2)
+      print(*board_3)
+      print()
+      # 5. ruch na tablicy
+      print(f"{player_1} your move!")
+      player_1_position = input("Please type your position: ")
+      player_1_position_upper = player_1_position.upper()
+      if player_1_position_upper == "A1" and board_1_work[1] == "A1":
+          board_1[1] = player_1_mark_up
+          board_1_work[1] = player_1_mark_up
+      elif player_1_position_upper == "A2" and board_2_work[1] == "A2":
+          board_2[1] = player_1_mark_up
+          board_2_work[1] = player_1_mark_up
+      elif player_1_position_upper == "A3" and board_3_work[1] == "A3":
+          board_3[1] = player_1_mark_up
+          board_3_work[1] = player_1_mark_up
+      elif player_1_position_upper == "B1" and board_1_work[3] == "B1":
+          board_1[3] = player_1_mark_up
+          board_1_work[3] = player_1_mark_up
+      elif player_1_position_upper == "B2" and board_2_work[3] == "B2":
+           board_2[3] = player_1_mark_up
+           board_2_work[3] = player_1_mark_up
+      elif player_1_position_upper == "B3" and board_3_work[3] == "B3":
+           board_3[3] = player_1_mark_up
+           board_3_work[3] = player_1_mark_up
+      elif player_1_position_upper == "C1" and board_1_work[5] == "C1":
+           board_1[5] = player_1_mark_up
+           board_1_work[5] = player_1_mark_up
+      elif player_1_position_upper == "C2" and board_2_work[5] == "C2":
+           board_2[5] = player_1_mark_up
+           board_2_work[5] = player_1_mark_up
+      elif player_1_position_upper == "C3" and board_3_work[5] == "C3":
+           board_3[5] = player_1_mark_up
+           board_3_work[5] = player_1_mark_up
+    
+      print()
+      print(*board_0)
+      print(*board_1)
+      print(*board_2)
+      print(*board_3)
+      print()
+
+      # sprawdzenie po 5. ruchu
+      while board_1_work[3] == board_2_work[3] == board_3_work[3] or board_1_work[1] == board_2_work[1] == board_3_work[1] or board_1_work[5] == board_2_work[5] == board_3_work[5] or board_1_work[1] == board_1_work[3] == board_1_work[5] or board_2_work[1] == board_2_work[3] == board_2_work[5] or board_3_work[1] == board_3_work[3] == board_3_work[5] or board_1_work[1] == board_2_work[3] == board_3_work[5] or board_3_work[1] == board_2_work[3] == board_1_work[5]:
+          
+          print(f"Congratulations!!! The winner is {player_1}!")
+          print()
+          break
+      #wprowadzenie 6 znaku
+      else:
           print()
           print(*board_0)
           print(*board_1)
           print(*board_2)
           print(*board_3)
           print()
-
-
+          print(f"{player_2} your move!")
+          player_2_position = input("Please type your position: ")
+          player_2_position_upper = player_2_position.upper()
+          if player_2_position_upper == "A1" and board_1_work[1] == "A1":
+              board_1[1] = player_2_mark_up
+              board_1_work[1] = player_2_mark_up
+          elif player_2_position_upper == "A2" and board_2_work[1] == "A2":
+              board_2[1] = player_2_mark_up
+              board_2_work[1] = player_2_mark_up
+          elif player_2_position_upper == "A3" and board_3_work[1] == "A3":
+              board_3[1] = player_2_mark_up
+              board_3_work[1] = player_2_mark_up
+          elif player_2_position_upper == "B1" and board_1_work[3] == "B1":
+              board_1[3] = player_2_mark_up
+              board_1_work[3] = player_2_mark_up
+          elif player_2_position_upper == "B2" and board_2_work[3] == "B2":
+              board_2[3] = player_2_mark_up
+              board_2_work[3] = player_2_mark_up
+          elif player_2_position_upper == "B3" and board_3_work[3] == "B3":
+              board_3[3] = player_2_mark_up
+              board_3_work[3] = player_2_mark_up
+          elif player_2_position_upper == "C1" and board_1_work[5] == "C1":
+              board_1[5] = player_2_mark_up
+              board_1_work[5] = player_2_mark_up
+          elif player_2_position_upper == "C2" and board_2_work[5] == "C2":
+              board_2[5] = player_2_mark_up
+              board_2_work[5] = player_2_mark_up
+          elif player_2_position_upper == "C3" and board_3_work[5] == "C3":
+              board_3[5] = player_2_mark_up
+              board_3_work[5] = player_2_mark_up
           
-              
-              
-              
-              
-              
+          #sprawdzenie po 6 znaku
+          while board_1_work[3] == board_2_work[3] == board_3_work[3] or board_1_work[1] == board_2_work[1] == board_3_work[1] or board_1_work[5] == board_2_work[5] == board_3_work[5] or board_1_work[1] == board_1_work[3] == board_1_work[5] or board_2_work[1] == board_2_work[3] == board_2_work[5] or board_3_work[1] == board_3_work[3] == board_3_work[5] or board_1_work[1] == board_2_work[3] == board_3_work[5] or board_3_work[1] == board_2_work[3] == board_1_work[5]:
+               print()
+               print(*board_0)
+               print(*board_1)
+               print(*board_2)
+               print(*board_3)
+               print()
+               print(f"Congratulations!!! The winner is {player_2}!")
+               print()
+               break
           
-
-         
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          #while player_1_position_upper in board_1 or board_2 or board_3:
-              #for i in board_1:
-                 # board_1[i] = player_1_mark_up
-             # for i in board_2:
-             #     board_2[i] = player_1_mark_up
-             # for i in board_3:
-             #     board_3[i] = player_1_mark_up
-             # print()
-             # print(*board_0)
-             # print(*board_1)
-             # print(*board_2)
-             # print(*board_3)
-             # print()
-         # else:
-          #    print("Please input valid position.")
-            
-
-
-          
-
-      
-      else:
-          print("You won.")
+          #wprowadzenie 7 znaku
+          else:
+              print()
+              print(*board_0)
+              print(*board_1)
+              print(*board_2)
+              print(*board_3)
+              print()
+              print(f"{player_1} your move!")
+              player_1_position = input("Please type your position: ")
+              player_1_position_upper = player_1_position.upper()
+              if player_1_position_upper == "A1" and board_1_work[1] == "A1":
+                  board_1[1] = player_1_mark_up
+                  board_1_work[1] = player_1_mark_up
+              elif player_1_position_upper == "A2" and board_2_work[1] == "A2":
+                  board_2[1] = player_1_mark_up
+                  board_2_work[1] = player_1_mark_up
+              elif player_1_position_upper == "A3" and board_3_work[1] == "A3":
+                  board_3[1] = player_1_mark_up
+                  board_3_work[1] = player_1_mark_up
+              elif player_1_position_upper == "B1" and board_1_work[3] == "B1":
+                  board_1[3] = player_1_mark_up
+                  board_1_work[3] = player_1_mark_up
+              elif player_1_position_upper == "B2" and board_2_work[3] == "B2":
+                  board_2[3] = player_1_mark_up
+                  board_2_work[3] = player_1_mark_up
+              elif player_1_position_upper == "B3" and board_3_work[3] == "B3":
+                  board_3[3] = player_1_mark_up
+                  board_3_work[3] = player_1_mark_up
+              elif player_1_position_upper == "C1" and board_1_work[5] == "C1":
+                  board_1[5] = player_1_mark_up
+                  board_1_work[5] = player_1_mark_up
+              elif player_1_position_upper == "C2" and board_2_work[5] == "C2":
+                  board_2[5] = player_1_mark_up
+                  board_2_work[5] = player_1_mark_up
+              elif player_1_position_upper == "C3" and board_3_work[5] == "C3":
+                  board_3[5] = player_1_mark_up
+                  board_3_work[5] = player_1_mark_up
+              
+              #sprawdzenie po 7 znaku
+              while board_1_work[3] == board_2_work[3] == board_3_work[3] or board_1_work[1] == board_2_work[1] == board_3_work[1] or board_1_work[5] == board_2_work[5] == board_3_work[5] or board_1_work[1] == board_1_work[3] == board_1_work[5] or board_2_work[1] == board_2_work[3] == board_2_work[5] or board_3_work[1] == board_3_work[3] == board_3_work[5] or board_1_work[1] == board_2_work[3] == board_3_work[5] or board_3_work[1] == board_2_work[3] == board_1_work[5]:
+                  print()
+                  print(*board_0)
+                  print(*board_1)
+                  print(*board_2)
+                  print(*board_3)
+                  print()
+                  print(f"Congratulations!!! The winner is {player_1}!")
+                  print()
+                  break
+              #wprowadzenie 8 znaku
+              else:
+                  print()
+                  print(*board_0)
+                  print(*board_1)
+                  print(*board_2)
+                  print(*board_3)
+                  print()
+                  print(f"{player_2} your move!")
+                  player_2_position = input("Please type your position: ")
+                  player_2_position_upper = player_2_position.upper()
+                  if player_2_position_upper == "A1" and board_1_work[1] == "A1":
+                      board_1[1] = player_2_mark_up
+                      board_1_work[1] = player_2_mark_up
+                  elif player_2_position_upper == "A2" and board_2_work[1] == "A2":
+                      board_2[1] = player_2_mark_up
+                      board_2_work[1] = player_2_mark_up
+                  elif player_2_position_upper == "A3" and board_3_work[1] == "A3":
+                      board_3[1] = player_2_mark_up
+                      board_3_work[1] = player_2_mark_up
+                  elif player_2_position_upper == "B1" and board_1_work[3] == "B1":
+                      board_1[3] = player_2_mark_up
+                      board_1_work[3] = player_2_mark_up
+                  elif player_2_position_upper == "B2" and board_2_work[3] == "B2":
+                      board_2[3] = player_2_mark_up
+                      board_2_work[3] = player_2_mark_up
+                  elif player_2_position_upper == "B3" and board_3_work[3] == "B3":
+                      board_3[3] = player_2_mark_up
+                      board_3_work[3] = player_2_mark_up
+                  elif player_2_position_upper == "C1" and board_1_work[5] == "C1":
+                      board_1[5] = player_2_mark_up
+                      board_1_work[5] = player_2_mark_up
+                  elif player_2_position_upper == "C2" and board_2_work[5] == "C2":
+                      board_2[5] = player_2_mark_up
+                      board_2_work[5] = player_2_mark_up
+                  elif player_2_position_upper == "C3" and board_3_work[5] == "C3":
+                      board_3[5] = player_2_mark_up
+                      board_3_work[5] = player_2_mark_up
+                
+                #sprawdzenie po 8 znaku
+                  while board_1_work[3] == board_2_work[3] == board_3_work[3] or board_1_work[1] == board_2_work[1] == board_3_work[1] or board_1_work[5] == board_2_work[5] == board_3_work[5] or board_1_work[1] == board_1_work[3] == board_1_work[5] or board_2_work[1] == board_2_work[3] == board_2_work[5] or board_3_work[1] == board_3_work[3] == board_3_work[5] or board_1_work[1] == board_2_work[3] == board_3_work[5] or board_3_work[1] == board_2_work[3] == board_1_work[5]:
+                      print()
+                      print(*board_0)
+                      print(*board_1)
+                      print(*board_2)
+                      print(*board_3)
+                      print()
+                      print(f"Congratulations!!! The winner is {player_2}!")
+                      print()
+                      break
+                  else:
+                      print()
+                      print(*board_0)
+                      print(*board_1)
+                      print(*board_2)
+                      print(*board_3)
+                      print()
+                      print(f"{player_1} your move!")
+                      player_1_position = input("Please type your position: ")
+                      player_1_position_upper = player_1_position.upper()
+                      if player_1_position_upper == "A1" and board_1_work[1] == "A1":
+                          board_1[1] = player_1_mark_up
+                          board_1_work[1] = player_1_mark_up
+                      elif player_1_position_upper == "A2" and board_2_work[1] == "A2":
+                          board_2[1] = player_1_mark_up
+                          board_2_work[1] = player_1_mark_up
+                      elif player_1_position_upper == "A3" and board_3_work[1] == "A3":
+                          board_3[1] = player_1_mark_up
+                          board_3_work[1] = player_1_mark_up
+                      elif player_1_position_upper == "B1" and board_1_work[3] == "B1":
+                          board_1[3] = player_1_mark_up
+                          board_1_work[3] = player_1_mark_up
+                      elif player_1_position_upper == "B2" and board_2_work[3] == "B2":
+                          board_2[3] = player_1_mark_up
+                          board_2_work[3] = player_1_mark_up
+                      elif player_1_position_upper == "B3" and board_3_work[3] == "B3":
+                          board_3[3] = player_1_mark_up
+                          board_3_work[3] = player_1_mark_up
+                      elif player_1_position_upper == "C1" and board_1_work[5] == "C1":
+                          board_1[5] = player_1_mark_up
+                          board_1_work[5] = player_1_mark_up
+                      elif player_1_position_upper == "C2" and board_2_work[5] == "C2":
+                          board_2[5] = player_1_mark_up
+                          board_2_work[5] = player_1_mark_up
+                      elif player_1_position_upper == "C3" and board_3_work[5] == "C3":
+                          board_3[5] = player_1_mark_up
+                          board_3_work[5] = player_1_mark_up
+                    
+                    #sprawdzenie po 9 znaku
+                      while board_1_work[3] == board_2_work[3] == board_3_work[3] or board_1_work[1] == board_2_work[1] == board_3_work[1] or board_1_work[5] == board_2_work[5] == board_3_work[5] or board_1_work[1] == board_1_work[3] == board_1_work[5] or board_2_work[1] == board_2_work[3] == board_2_work[5] or board_3_work[1] == board_3_work[3] == board_3_work[5] or board_1_work[1] == board_2_work[3] == board_3_work[5] or board_3_work[1] == board_2_work[3] == board_1_work[5]:
+                          print()
+                          print(*board_0)
+                          print(*board_1)
+                          print(*board_2)
+                          print(*board_3)
+                          print()
+                          print(f"Congratulations!!! The winner is {player_1}!")
+                          print()
+                          break
+                      else:
+                          print()
+                          print("The game is end. There is no the winner!")
+                          print()
