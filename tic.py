@@ -58,17 +58,17 @@ board_3 = ["3", ".", "|", ".", "|", "."]
 
 #rozwiązania, które dają wygraną graczowi
 
-#board_1[1] == board_2[1] == board_3[1]
+#board_1_work[1] == board_2_work[1] == board_3_work[1]
 
-#board_1[3] == board_2[3] == board_3[3]
-#board_1[5] == board_2[5] == board_3[5]
+#board_1_work[3] == board_2_work[3] == board_3_work[3]
+#board_1_work[5] == board_2_work[5] == board_3_work[5]
 
-#board_1[1] == board_1[3] == board_1[5]
-#board_2[1] == board_2[3] == board_2[5]
-#board_3[1] == board_3[3] == board_3[5]
+#board_1_work[1] == board_1_work[3] == board_1_work[5]
+#board_2_work[1] == board_2_work[3] == board_2_work[5]
+#board_3_work[1] == board_3_work[3] == board_3_work[5]
 
-#board_1[1] == board_2[3] == board_3[5]
-#board_3[1] == board_2[3] == board_1[5]
+#board_1_work[1] == board_2_work[3] == board_3_work[5]
+#board_3_work[1] == board_2_work[3] == board_1_work[5]
 
 #oznakowanie miejsc w tablicy
 
@@ -134,11 +134,12 @@ if type_game == "2":
       print()
 
       
+      
+    #or board_1_work[3] == board_2_work[3] == board_3_work[3] 
 
 
-
-
-      while not board_1_work[1] == board_2_work[1] == board_3_work[1] or board_1_work[3] == board_2_work[3] == board_3_work[3]:
+      while not board_1_work[3] == board_2_work[3] == board_3_work[3] and not board_1_work[1] == board_2_work[1] == board_3_work[1] and not board_1_work[5] == board_2_work[5] == board_3_work[5] and not board_1_work[1] == board_1_work[3] == board_1_work[5] and not board_2_work[1] == board_2_work[3] == board_2_work[5] and not board_3_work[1] == board_3_work[3] == board_3_work[5] and not board_1_work[1] == board_2_work[3] == board_3_work[5] and not board_3_work[1] == board_2_work[3] == board_1_work[5]:
+          
       
           print(f"{player_1} your move!")
           player_1_position = input("Please type your position: ")
@@ -170,19 +171,60 @@ if type_game == "2":
           elif player_1_position_upper == "C3" and board_3_work[5] == "C3":
               board_3[5] = player_1_mark_up
               board_3_work[5] = player_1_mark_up
-
-              
-              
-              
-              
-              
-              
+          
           print()
           print(*board_0)
           print(*board_1)
           print(*board_2)
           print(*board_3)
           print()
+
+          print(f"{player_2} your move!")
+          player_2_position = input("Please type your position: ")
+          player_2_position_upper = player_2_position.upper()
+          if player_2_position_upper == "A1" and board_1_work[1] == "A1":
+              board_1[1] = player_2_mark_up
+              board_1_work[1] = player_2_mark_up
+          elif player_2_position_upper == "A2" and board_2_work[1] == "A2":
+              board_2[1] = player_2_mark_up
+              board_2_work[1] = player_2_mark_up
+          elif player_2_position_upper == "A3" and board_3_work[1] == "A3":
+              board_3[1] = player_2_mark_up
+              board_3_work[1] = player_2_mark_up
+          elif player_2_position_upper == "B1" and board_1_work[3] == "B1":
+              board_1[3] = player_2_mark_up
+              board_1_work[3] = player_2_mark_up
+          elif player_2_position_upper == "B2" and board_2_work[3] == "B2":
+              board_2[3] = player_2_mark_up
+              board_2_work[3] = player_2_mark_up
+          elif player_2_position_upper == "B3" and board_3_work[3] == "B3":
+              board_3[3] = player_2_mark_up
+              board_3_work[3] = player_2_mark_up
+          elif player_2_position_upper == "C1" and board_1_work[5] == "C1":
+              board_1[5] = player_2_mark_up
+              board_1_work[5] = player_2_mark_up
+          elif player_2_position_upper == "C2" and board_2_work[5] == "C2":
+              board_2[5] = player_2_mark_up
+              board_2_work[5] = player_2_mark_up
+          elif player_2_position_upper == "C3" and board_3_work[5] == "C3":
+              board_3[5] = player_2_mark_up
+              board_3_work[5] = player_2_mark_up
+        
+          print()
+          print(*board_0)
+          print(*board_1)
+          print(*board_2)
+          print(*board_3)
+          print()
+
+
+          
+              
+              
+              
+              
+              
+          
 
          
 
