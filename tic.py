@@ -104,175 +104,275 @@ winner = []
 
 #rozpiska dla wersji single player/BOT AI
 if type_game == "1":
-    score = []
-    def printBoard(board):
-        print(board[1] + '|' + board[2] + '|' + board[3])
-        print('-+-+-')
-        print(board[4] + '|' + board[5] + '|' + board[6])
-        print('-+-+-')
-        print(board[7] + '|' + board[8] + '|' + board[9])
-        print("\n")
 
+    player_value = -1
+    bot_value = 1
+    player_1 = player_A
+    bot_mark = []
+    print()
+    print(f"Ok {player_1}, now please choose what is your mark. For X type x like xerox and for O type o like open.")
+    player_1_mark = str(input("Your mark is: "))
+    player_1_mark_up = str.upper(player_1_mark)
+    
+    if player_1_mark_up == "X":
+        bot_mark = "O"
+    else:
+        bot_mark = "X"
 
-    def spaceIsFree(position):
-        if board[position] == ' ':
-            return True
-        else:
-            return False
-
-
-    def insertLetter(letter, position):
-        if spaceIsFree(position):
-            board[position] = letter
-            printBoard(board)
-            if (checkDraw()):
-                print("Draw!")
-                exit()
-            if checkForWin():
-                if letter == 'X':
-                    print("Bot wins!")
-                    exit()
-                else:
-                    print("Player wins!")
-                    exit()
-
-            return
-
-
-        else:
-            print("Can't insert there!")
-            position = int(input("Please enter new position:  "))
-            insertLetter(letter, position)
-        return
-
-
-    def checkForWin():
-        if (board[1] == board[2] and board[1] == board[3] and board[1] != ' '):
-            return True
-        elif (board[4] == board[5] and board[4] == board[6] and board[4] != ' '):
-            return True
-        elif (board[7] == board[8] and board[7] == board[9] and board[7] != ' '):
-            return True
-        elif (board[1] == board[4] and board[1] == board[7] and board[1] != ' '):
-            return True
-        elif (board[2] == board[5] and board[2] == board[8] and board[2] != ' '):
-            return True
-        elif (board[3] == board[6] and board[3] == board[9] and board[3] != ' '):
-            return True
-        elif (board[1] == board[5] and board[1] == board[9] and board[1] != ' '):
-            return True
-        elif (board[7] == board[5] and board[7] == board[3] and board[7] != ' '):
-            return True
-        else:
-            return False
-
-
-    def checkWhichMarkWon(mark):
-        if board[1] == board[2] and board[1] == board[3] and board[1] == mark:
-            return True
-        elif (board[4] == board[5] and board[4] == board[6] and board[4] == mark):
-            return True
-        elif (board[7] == board[8] and board[7] == board[9] and board[7] == mark):
-            return True
-        elif (board[1] == board[4] and board[1] == board[7] and board[1] == mark):
-            return True
-        elif (board[2] == board[5] and board[2] == board[8] and board[2] == mark):
-            return True
-        elif (board[3] == board[6] and board[3] == board[9] and board[3] == mark):
-            return True
-        elif (board[1] == board[5] and board[1] == board[9] and board[1] == mark):
-            return True
-        elif (board[7] == board[5] and board[7] == board[3] and board[7] == mark):
-            return True
-        else:
-            return False
-
-
-    def checkDraw():
-        for key in board.keys():
-            if (board[key] == ' '):
-                return False
-        return True
-
-
-    def playerMove():
-        position = int(input("Enter the position for 'O':  "))
-        insertLetter(player, position)
-        return
-
-
-    def compMove():
-        bestScore = -800
-        bestMove = 0
-        for key in board.keys():
-            if (board[key] == ' '):
-                board[key] = bot
-                score = minimax(board, 0, False)
-                board[key] = ' '
-                if (score > bestScore):
-                    bestScore = score
-                    bestMove = key
-
-        insertLetter(bot, bestMove)
-        return
-
-
-    def minimax(board, depth, isMaximizing):
-        if (checkWhichMarkWon(bot)):
-            return 1
-        elif (checkWhichMarkWon(player)):
-            return -1
-        elif (checkDraw()):
-            return 0
-
-        if (isMaximizing):
-            bestScore = -800
-            for key in board.keys():
-                if (board[key] == ' '):
-                    board[key] = bot
-                    score = minimax(board, depth + 1, False)
-                    board[key] = ' '
-                    if (score > bestScore):
-                        bestScore = score
-            return bestScore
-
-        else:
-            bestScore = 800
-            for key in board.keys():
-                if (board[key] == ' '):
-                    board[key] = player
-                    score = minimax(board, depth + 1, True)
-                    board[key] = ' '
-                if (score < bestScore):
-                    bestScore = score
-            return bestScore
-
-
-    board = {1: ' ', 2: ' ', 3: ' ',
-             4: ' ', 5: ' ', 6: ' ',
-             7: ' ', 8: ' ', 9: ' '}
-
-    printBoard(board)
-    print("Computer goes first! Good luck.")
-    print("Positions are as follow:")
-    print("1, 2, 3 ")
-    print("4, 5, 6 ")
-    print("7, 8, 9 ")
-    print("\n")
-    player = 'O'
-    bot = 'X'
-
-
-    global firstComputerMove
-    firstComputerMove = True
-
-    while not checkForWin():
-        compMove()
-        playerMove()
+    board = { "1": " ", "2": " ", "3": " ",
+              "4": " ", "5": " ", "6": " ",
+              "7": " ", "8": " ", "9": " "
+            } 
+    
+    print()
+    print(*board_0)
+    print(*board_1)
+    print(*board_2)
+    print(*board_3)
+    print()
+    print(f"{player_1} your move!")
+    player_1_position = input("Please type your position: ")
+    player_1_position_upper = player_1_position.upper()
+    if player_1_position_upper == "A1" and board_1_work[1] == "A1":
+        board_1[1] = player_1_mark_up
+        board_1_work[1] = player_1_mark_up
+        board.update({"1": player_value})
+    elif player_1_position_upper == "A2" and board_2_work[1] == "A2":
+        board_2[1] = player_1_mark_up
+        board_2_work[1] = player_1_mark_up
+        board.update({"4": player_value})
+    elif player_1_position_upper == "A3" and board_3_work[1] == "A3":
+        board_3[1] = player_1_mark_up
+        board_3_work[1] = player_1_mark_up
+        board.update({"7": player_value})
+    elif player_1_position_upper == "B1" and board_1_work[3] == "B1":
+        board_1[3] = player_1_mark_up
+        board_1_work[3] = player_1_mark_up
+        board.update({"2": player_value})
+    elif player_1_position_upper == "B2" and board_2_work[3] == "B2":
+        board_2[3] = player_1_mark_up
+        board_2_work[3] = player_1_mark_up
+        board.update({"5": player_value})
+    elif player_1_position_upper == "B3" and board_3_work[3] == "B3":
+        board_3[3] = player_1_mark_up
+        board_3_work[3] = player_1_mark_up
+        board.update({"8": player_value})
+    elif player_1_position_upper == "C1" and board_1_work[5] == "C1":
+        board_1[5] = player_1_mark_up
+        board_1_work[5] = player_1_mark_up
+        board.update({"3": player_value})
+    elif player_1_position_upper == "C2" and board_2_work[5] == "C2":
+        board_2[5] = player_1_mark_up
+        board_2_work[5] = player_1_mark_up
+        board.update({"6": player_value})
+    elif player_1_position_upper == "C3" and board_3_work[5] == "C3":
+        board_3[5] = player_1_mark_up
+        board_3_work[5] = player_1_mark_up
+        board.update({"9": player_value})
+   
+    
+    if board.get("5") == " ":
+        board.update({"5": bot_mark})
+        board_2_work[3] = bot_mark
+        board_2[3] = bot_mark
+        print()
+        print(*board_0)
+        print(*board_1)
+        print(*board_2)
+        print(*board_3)
+        print()
+        print(f"{player_1} your move!")
+        player_1_position = input("Please type your position: ")
+    else:
+        
+        random_list = [1, 3, 7, 9]
+        import random
+        random_move = random.choice(random_list)
+        if random_move == 1:
+            board_1[1] = bot_mark
+        elif random_move == 3:
+            board_1[5] = bot_mark
+        elif random_move == 7:
+            board_3[1] = bot_mark
+        elif random_move == 9:
+            board_3[5] = bot_mark
 
 
 
+    
+    
+        print()
+        print(*board_0)
+        print(*board_1)
+        print(*board_2)
+        print(*board_3)
+        print()
+        print(f"{player_1} your move!")
+        player_1_position = input("Please type your position: ")
 
+
+    
+        
+    
+    
+    '''
+    while (board.get("1") == " " or board.get("2") == " " or board.get("3") == " " or board.get("3") == " " or board.get("4") == " " or board.get("5") == " " or board.get("6") == " " or board.get("7") == " " or board.get("8") == " " or board.get("9") == " ") is True and (board_1_work[3] == board_2_work[3] == board_3_work[3] or board_1_work[1] == board_2_work[1] == board_3_work[1] or board_1_work[5] == board_2_work[5] == board_3_work[5] or board_1_work[1] == board_1_work[3] == board_1_work[5] or board_2_work[1] == board_2_work[3] == board_2_work[5] or board_3_work[1] == board_3_work[3] == board_3_work[5] or board_1_work[1] == board_2_work[3] == board_3_work[5] or board_3_work[1] == board_2_work[3] == board_1_work[5]) is False:
+          
+        print()
+        print(*board_0)
+        print(*board_1)
+        print(*board_2)
+        print(*board_3)
+        print()
+        
+        print(f"{player_1} your move!")
+        player_1_position = input("Please type your position: ")
+        player_1_position_upper = player_1_position.upper()
+        if player_1_position_upper == "A1" and board_1_work[1] == "A1":
+            board_1[1] = player_1_mark_up
+            board_1_work[1] = player_1_mark_up
+            board.update({"1": player_value})
+        elif player_1_position_upper == "A2" and board_2_work[1] == "A2":
+            board_2[1] = player_1_mark_up
+            board_2_work[1] = player_1_mark_up
+            board.update({"4": player_value})
+        elif player_1_position_upper == "A3" and board_3_work[1] == "A3":
+            board_3[1] = player_1_mark_up
+            board_3_work[1] = player_1_mark_up
+            board.update({"7": player_value})
+        elif player_1_position_upper == "B1" and board_1_work[3] == "B1":
+            board_1[3] = player_1_mark_up
+            board_1_work[3] = player_1_mark_up
+            board.update({"2": player_value})
+        elif player_1_position_upper == "B2" and board_2_work[3] == "B2":
+            board_2[3] = player_1_mark_up
+            board_2_work[3] = player_1_mark_up
+            board.update({"5": player_value})
+        elif player_1_position_upper == "B3" and board_3_work[3] == "B3":
+            board_3[3] = player_1_mark_up
+            board_3_work[3] = player_1_mark_up
+            board.update({"8": player_value})
+        elif player_1_position_upper == "C1" and board_1_work[5] == "C1":
+            board_1[5] = player_1_mark_up
+            board_1_work[5] = player_1_mark_up
+            board.update({"3": player_value})
+        elif player_1_position_upper == "C2" and board_2_work[5] == "C2":
+            board_2[5] = player_1_mark_up
+            board_2_work[5] = player_1_mark_up
+            board.update({"6": player_value})
+        elif player_1_position_upper == "C3" and board_3_work[5] == "C3":
+            board_3[5] = player_1_mark_up
+            board_3_work[5] = player_1_mark_up
+            board.update({"9": player_value})
+
+        print()
+        print(*board_0)
+        print(*board_1)
+        print(*board_2)
+        print(*board_3)
+        print()
+
+        print(board)
+
+        
+
+
+       
+        
+        
+        
+        break
+    
+    
+    
+    
+    
+    else:
+       if (board_1_work[3] == board_2_work[3] == board_3_work[3] == player_1_mark_up or board_1_work[1] == board_2_work[1] == board_3_work[1] == player_1_mark_up or board_1_work[5] == board_2_work[5] == board_3_work[5] == player_1_mark_up or board_1_work[1] == board_1_work[3] == board_1_work[5] == player_1_mark_up or board_2_work[1] == board_2_work[3] == board_2_work[5] == player_1_mark_up or board_3_work[1] == board_3_work[3] == board_3_work[5] == player_1_mark_up or board_1_work[1] == board_2_work[3] == board_3_work[5] == player_1_mark_up or board_3_work[1] == board_2_work[3] == board_1_work[5] == player_1_mark_up) is True:
+           print("Congratulations! You won with the AI BOT!")
+           print()
+       else:
+           if (board.get("1") == " " or board.get("2") == " " or board.get("3") == " " or board.get("3") == " " or board.get("4") == " " or board.get("5") == " " or board.get("6") == " " or board.get("7") == " " or board.get("8") == " " or board.get("9") == " ") is False:
+               print("Ups... There is no the winner. We have the draw!")
+               print()
+
+
+
+
+
+
+        #if board.get("1") == board.get("4") == board.get("7") == player_1_mark_up:
+           # print("Congratulations! You won with the AI BOT!")
+           # print()
+        #elif board.get("2") == board.get("5") == board.get("8") == player_1_mark_up:
+           # print("Congratulations! You won with the AI BOT!")
+           # print()
+        #elif board.get("3") == board.get("6") == board.get("9") == player_1_mark_up:
+           # print("Congratulations! You won with the AI BOT!")
+           # print()
+       # elif board.get("1") == board.get("2") == board.get("3") == player_1_mark_up:
+           # print("Congratulations! You won with the AI BOT!")
+           # print()
+       # elif board.get("4") == board.get("5") == board.get("6") == player_1_mark_up:
+            #print("Congratulations! You won with the AI BOT!")
+           # print()
+        #elif board.get("7") == board.get("8") == board.get("9") == player_1_mark_up:
+            #print("Congratulations! You won with the AI BOT!")
+           # print()
+        #elif board.get("7") == board.get("8") == board.get("9") == player_1_mark_up:
+            #print("Congratulations! You won with the AI BOT!")
+            #print()
+        #elif board.get("1") == board.get("5") == board.get("9") == player_1_mark_up:
+           # print("Congratulations! You won with the AI BOT!")
+           # print()
+       # elif board.get("3") == board.get("5") == board.get("7") == player_1_mark_up:
+           # print("Congratulations! You won with the AI BOT!")
+           # print()
+       # else:
+           # print("Ups... AI BOT is better than you!")
+           # print()
+#
+
+       
+
+
+
+        
+        
+            
+        
+            
+        
+            
+        
+            
+        
+           
+        
+            
+        
+        
+            
+        
+        
+            
+       
+       
+            
+      
+        
+            
+        
+
+
+
+    
+
+
+
+
+
+'''
 
 
 
